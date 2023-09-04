@@ -1,0 +1,32 @@
+{
+    "generate_for_show": "House MD",
+    "backgrounds": [
+        "office"
+    ],
+    "characters": [
+        {
+            "name": "house"
+        },
+        {
+            "name": "wilson"
+        },
+        {
+            "name": "cuddy"
+        },
+        {
+            "name": "cameron"
+        },
+        {
+            "name": "chase"
+        }
+    ],
+    "movement_nodes": {
+      "office": [{"id":1693255022842,"x":847.9000000000001,"y":644.3000000000001,"scale":0.6000000000000001},{"id":1693255024271,"x":699.5,"y":514.6500000000001,"scale":0.30000000000000016},{"id":1693255025273,"x":530,"y":669,"scale":0.5000000000000001},{"id":1693255026033,"x":324.35,"y":667.85,"scale":0.7000000000000001},{"id":1693255026722,"x":98.4,"y":520.6,"scale":0.4}]
+    },
+    "constraints": [
+        "Characters must start either invisible, off the screen, or on a movement node",
+        "No overlapping positions",
+        "One character speaks at a time",
+        "Script must be 5 minutes long"
+    ]
+}

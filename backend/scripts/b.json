@@ -1,0 +1,389 @@
+{
+	"title": "The Dual Diagnosis",
+	"description": "In this gripping episode titled 'The Rare Diagnosis', Dr. House and his team face a puzzling case where the symptoms point towards a combination of Hydrocephaly and trimethylaminuria. As the team delves deeper, they grapple with not only the medical intricacies but also the psychological impact on their patient. Dr. House's unyielding search for truth brings forth a series of revelations, while Cuddy and Wilson provide the emotional and logical counterpoints to his methods. The corridors of Princeton-Plainsboro Teaching Hospital resonate with debates, theories, and the quest for a cure. Meanwhile, the patient's distress serves as a stark reminder of the human side of medicine. The episode culminates in a dramatic sequence as the team races against time, combining their expertise to solve yet another medical mystery.",
+	"duration": 180,
+	"all_scenes": [
+		"hospital_room",
+		"meeting_room",
+		"hallway",
+		"mri_room",
+		"office"
+	],
+	"all_characters": ["patient", "cameron", "chase", "house", "wilson", "cuddy"],
+	"timeline": [
+		{
+			"timestamp": 0,
+			"actions": [
+				{
+					"action_type": "scene",
+					"scene": "hospital_room",
+					"transition_effect": "none",
+					"duration": 1,
+					"initialState": {
+						"characters": [
+							{
+								"name": "patient",
+								"visible": true,
+								"position": {
+									"startX": 200,
+									"startY": 250,
+									"scale": 1
+								}
+							},
+							{
+								"name": "cameron",
+								"visible": true,
+								"position": {
+									"startX": 100,
+									"startY": 400,
+									"scale": 0.8
+								}
+							},
+							{
+								"name": "chase",
+								"visible": true,
+								"position": {
+									"startX": 300,
+									"startY": 400,
+									"scale": 0.8
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"timestamp": 1,
+			"actions": [
+				{
+					"character": "cameron",
+					"action_type": "talk",
+					"dialogue": "These symptoms don't align with anything common. What do you think, Chase?",
+					"duration": 6
+				}
+			]
+		},
+		{
+			"timestamp": 8,
+			"actions": [
+				{
+					"character": "chase",
+					"action_type": "talk",
+					"dialogue": "It might be something rare. We should consult House.",
+					"duration": 5
+				}
+			]
+		},
+		{
+			"timestamp": 15,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "Rare? That's my middle name. Well, not really. But it should be.",
+					"duration": 7
+				}
+			]
+		},
+		{
+			"timestamp": 25,
+			"actions": [
+				{
+					"action_type": "scene",
+					"scene": "meeting_room",
+					"transition_effect": "fade",
+					"duration": 1,
+					"initialState": {
+						"characters": [
+							{
+								"name": "house",
+								"visible": true,
+								"position": {
+									"startX": 150,
+									"startY": 350,
+									"scale": 0.8
+								}
+							},
+							{
+								"name": "wilson",
+								"visible": true,
+								"position": {
+									"startX": 300,
+									"startY": 350,
+									"scale": 0.8
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"timestamp": 30,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "Hydrocephaly and trimethylaminuria. Ever heard of them, Wilson?",
+					"duration": 7
+				}
+			]
+		},
+		{
+			"timestamp": 40,
+			"actions": [
+				{
+					"character": "wilson",
+					"action_type": "talk",
+					"dialogue": "Separately, yes. But together? That's a puzzle.",
+					"duration": 6
+				}
+			]
+		},
+		{
+			"timestamp": 48,
+			"actions": [
+				{
+					"action_type": "scene",
+					"scene": "hallway",
+					"transition_effect": "fade",
+					"duration": 1,
+					"initialState": {
+						"characters": [
+							{
+								"name": "cameron",
+								"visible": true,
+								"position": {
+									"startX": 150,
+									"startY": 450,
+									"scale": 0.8
+								}
+							},
+							{
+								"name": "chase",
+								"visible": true,
+								"position": {
+									"startX": 300,
+									"startY": 450,
+									"scale": 0.8
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"timestamp": 52,
+			"actions": [
+				{
+					"character": "cameron",
+					"action_type": "talk",
+					"dialogue": "We need more tests. This combination of symptoms is baffling.",
+					"duration": 6
+				}
+			]
+		},
+		{
+			"timestamp": 60,
+			"actions": [
+				{
+					"character": "chase",
+					"action_type": "talk",
+					"dialogue": "I agree. But we should also consider their mental well-being. The stigmatization from trimethylaminuria can be distressing.",
+					"duration": 10
+				}
+			]
+		},
+		{
+			"timestamp": 72,
+			"actions": [
+				{
+					"action_type": "scene",
+					"scene": "mri_room",
+					"transition_effect": "slide",
+					"duration": 1,
+					"initialState": {
+						"characters": [
+							{
+								"name": "patient",
+								"visible": true,
+								"position": {
+									"startX": 250,
+									"startY": 300,
+									"scale": 1
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"timestamp": 76,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "The MRI should reveal more. Hydrocephalus could explain the neurological symptoms.",
+					"duration": 8
+				}
+			]
+		},
+		{
+			"timestamp": 85,
+			"actions": [
+				{
+					"action_type": "scene",
+					"scene": "office",
+					"transition_effect": "slide",
+					"duration": 1,
+					"initialState": {
+						"characters": [
+							{
+								"name": "house",
+								"visible": true,
+								"position": {
+									"startX": 200,
+									"startY": 250,
+									"scale": 0.8
+								}
+							},
+							{
+								"name": "cuddy",
+								"visible": true,
+								"position": {
+									"startX": 100,
+									"startY": 400,
+									"scale": 0.8
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"timestamp": 87,
+			"actions": [
+				{
+					"character": "cuddy",
+					"action_type": "talk",
+					"dialogue": "House, I hope you're not jumping to conclusions without evidence.",
+					"duration": 8
+				}
+			]
+		},
+		{
+			"timestamp": 96,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "I never jump. I deduce.",
+					"duration": 4
+				}
+			]
+		},
+		{
+			"timestamp": 101,
+			"actions": [
+				{
+					"character": "wilson",
+					"action_type": "talk",
+					"dialogue": "You might be onto something with the Hydrocephaly, but the smell from trimethylaminuria is a whole different challenge.",
+					"duration": 10
+				}
+			]
+		},
+		{
+			"timestamp": 112,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "It's not just about the smell. It's about the psychological impact on the patient.",
+					"duration": 9
+				}
+			]
+		},
+		{
+			"timestamp": 122,
+			"actions": [
+				{
+					"character": "cameron",
+					"action_type": "talk",
+					"dialogue": "There are treatments available, dietary changes, antibiotics, and even riboflavin supplements.",
+					"duration": 10
+				}
+			]
+		},
+		{
+			"timestamp": 133,
+			"actions": [
+				{
+					"character": "chase",
+					"action_type": "talk",
+					"dialogue": "But first, we need to confirm the diagnosis. We can't just rely on symptoms alone.",
+					"duration": 8
+				}
+			]
+		},
+		{
+			"timestamp": 142,
+			"actions": [
+				{
+					"character": "cuddy",
+					"action_type": "talk",
+					"dialogue": "I trust you'll handle this with sensitivity, House. The patient is already distressed.",
+					"duration": 9
+				}
+			]
+		},
+		{
+			"timestamp": 152,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "Always. Now, let's get to the bottom of this.",
+					"duration": 5
+				}
+			]
+		},
+		{
+			"timestamp": 158,
+			"actions": [
+				{
+					"character": "wilson",
+					"action_type": "talk",
+					"dialogue": "I'll consult with the patient about potential therapies for trimethylaminuria.",
+					"duration": 9
+				}
+			]
+		},
+		{
+			"timestamp": 168,
+			"actions": [
+				{
+					"character": "cameron",
+					"action_type": "talk",
+					"dialogue": "And I'll check the MRI results for any signs of Hydrocephaly.",
+					"duration": 8
+				}
+			]
+		},
+		{
+			"timestamp": 177,
+			"actions": [
+				{
+					"character": "house",
+					"action_type": "talk",
+					"dialogue": "We'll solve this.",
+					"duration": 3
+				}
+			]
+		}
+	]
+}

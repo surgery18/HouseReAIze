@@ -1,0 +1,33 @@
+{
+	"title": "",
+	"duration": 10,
+	"all_scenes": ["Hospital_Room"],
+	"all_characters": ["Patient"],
+	"timeline": [
+		{
+			"timestamp": 0,
+			"actions": [
+				{
+					"action_type": "scene",
+					"scene": "Hospital_Room",
+					"transition_effect": "none",
+					"duration": 10,
+					"initialState": {
+						"characters": [
+							{
+								"name": "Patient",
+								"visible": true,
+								"position": {
+									"startX": 910,
+									"startY": 515.7499999999999,
+									"scale": 0.24999999999999967,
+									"rotation": 50
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}

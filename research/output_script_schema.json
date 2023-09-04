@@ -1,0 +1,161 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"properties": {
+		"scene": {
+			"type": "string",
+			"description": "The initial scene for the episode."
+		},
+		"title": {
+			"type": "string",
+			"description": "The title of the episode."
+		},
+		"description": {
+			"type": "string",
+			"description": "The description of the episode."
+		},
+		"duration": {
+			"type": "number",
+			"description": "The total duration of the episode in seconds."
+		},
+		"all_scenes": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"description": "List of all scenes used in the episode."
+		},
+		"all_characters": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			},
+			"description": "List of all characters appearing in the episode."
+		},
+		"timeline": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"timestamp": {
+						"type": "number",
+						"description": "The timestamp in seconds for this set of actions."
+					},
+					"actions": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"character": {
+									"type": "string",
+									"description": "The character this action is related to.",
+									"optional": true
+								},
+								"action_type": {
+									"type": "string",
+									"description": "The type of action (talk, move, appear, disappear)."
+								},
+								"dialogue": {
+									"type": "string",
+									"description": "The dialogue spoken by the character (if action_type is 'talk').",
+									"optional": true
+								},
+								"duration": {
+									"type": "number",
+									"description": "The duration of the action in seconds."
+								},
+								"position": {
+									"type": "object",
+									"properties": {
+										"startX": {
+											"type": "number"
+										},
+										"startY": {
+											"type": "number"
+										},
+										"endX": {
+											"type": "number",
+											"optional": true
+										},
+										"endY": {
+											"type": "number",
+											"optional": true
+										},
+										"scale": {
+											"type": "number"
+										},
+										"rotation": {
+											"type": "number"
+										}
+									},
+									"description": "Positional information for the character (if action_type is 'move').",
+									"optional": true
+								},
+								"scene": {
+									"type": "string",
+									"description": "The scene name (if action_type is 'scene').",
+									"optional": true
+								},
+								"transition_effect": {
+									"type": "string",
+									"description": "Transition effect used when changing scenes (fade, swipe, etc.) (if action_type is 'scene').",
+									"optional": true
+								},
+								"initialState": {
+									"type": "object",
+									"properties": {
+										"characters": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"name": {
+														"type": "string"
+													},
+													"visible": {
+														"type": "boolean"
+													},
+													"position": {
+														"type": "object",
+														"properties": {
+															"startX": {
+																"type": "number"
+															},
+															"startY": {
+																"type": "number"
+															},
+															"scale": {
+																"type": "number"
+															},
+															"rotation": {
+																"type": "number"
+															}
+														}
+													}
+												}
+											}
+										}
+									},
+									"description": "Initial state of characters when scene changes (if action_type is 'scene').",
+									"optional": true
+								}
+							},
+							"required": ["action_type", "duration"]
+						},
+						"description": "Actions for the character at this timestamp."
+					}
+				},
+				"required": ["timestamp", "actions"]
+			},
+			"description": "Timeline of actions and dialogues for the episode."
+		}
+	},
+	"required": [
+		"title",
+		"description",
+		"duration",
+		"all_scenes",
+		"all_characters",
+		"timeline"
+	]
+}

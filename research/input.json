@@ -1,0 +1,18 @@
+{
+  "output_script_schema": { ... },
+  "nodes": { ... },
+  "characters": ["house", "cuddy", "wilson"],
+  "topic": "lupus",
+  "guidelines": {
+    "house": {
+      "personality": "sarcastic, genius, direct",
+      "dialogue_style": "short, direct, sometimes mean"
+    }
+  },
+  "constraints": {
+    "episode_duration": 300,
+    "character_start": ["invisible", "offscreen", "movement_node"],
+    "unique_positions": true,
+    "solo_speech": true
+  }
+}

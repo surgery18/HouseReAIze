@@ -1,0 +1,224 @@
+{
+  "scene": "office",
+  "title": "The Rare Diagnosis",
+  "duration": 120,
+  "initialState": {
+    "characters": [
+      {
+        "name": "House",
+        "visible": true,
+        "position": {
+          "startX": 847.9,
+          "startY": 644.3,
+          "scale": 0.6
+        }
+      },
+      {
+        "name": "Wilson",
+        "visible": true,
+        "position": {
+          "startX": 699.5,
+          "startY": 514.65,
+          "scale": 0.3
+        }
+      },
+      {
+        "name": "Cuddy",
+        "visible": false,
+        "position": {
+          "startX": 0,
+          "startY": 0,
+          "scale": 1
+        }
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "timestamp": 0,
+      "actions": [
+        {
+          "character": "House",
+          "action_type": "talk",
+          "dialogue": "Wilson, I've been researching rare autoimmune disorders. I think our patient might have one.",
+          "duration": 8
+        }
+      ]
+    },
+    {
+      "timestamp": 9,
+      "actions": [
+        {
+          "character": "Wilson",
+          "action_type": "talk",
+          "dialogue": "It's a stretch, House. But I've seen stranger diagnoses from you.",
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 17,
+      "actions": [
+        {
+          "character": "Cuddy",
+          "action_type": "appear",
+          "duration": 1
+        },
+        {
+          "character": "Cuddy",
+          "action_type": "move",
+          "startX": 0,
+          "startY": 0,
+          "endX": 530,
+          "endY": 669,
+          "scale": 0.5,
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "timestamp": 25,
+      "actions": [
+        {
+          "character": "Cuddy",
+          "action_type": "talk",
+          "dialogue": "House, you can't just jump to rare diseases without proper evidence.",
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 33,
+      "actions": [
+        {
+          "character": "House",
+          "action_type": "talk",
+          "dialogue": "I trust my gut. And right now, it's telling me I'm onto something.",
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 41,
+      "actions": [
+        {
+          "character": "Wilson",
+          "action_type": "talk",
+          "dialogue": "Both of you, calm down. Let's review the patient's file together.",
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 49,
+      "actions": [
+        {
+          "character": "House",
+          "action_type": "move",
+          "startX": 847.9,
+          "startY": 644.3,
+          "endX": 324.35,
+          "endY": 667.85,
+          "scale": 0.7,
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 57,
+      "actions": [
+        {
+          "character": "Wilson",
+          "action_type": "move",
+          "startX": 699.5,
+          "startY": 514.65,
+          "endX": 98.4,
+          "endY": 520.6,
+          "scale": 0.4,
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 65,
+      "actions": [
+        {
+          "character": "House",
+          "action_type": "talk",
+          "dialogue": "We have to act fast. Time is of the essence.",
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "timestamp": 72,
+      "actions": [
+        {
+          "character": "Cuddy",
+          "action_type": "talk",
+          "dialogue": "Fine, but I'll be monitoring the patient closely.",
+          "duration": 7
+        }
+      ]
+    },
+    {
+      "timestamp": 80,
+      "actions": [
+        {
+          "character": "Wilson",
+          "action_type": "talk",
+          "dialogue": "Let's collaborate and solve this.",
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "timestamp": 87,
+      "actions": [
+        {
+          "character": "House",
+          "action_type": "talk",
+          "dialogue": "Agreed. We're a team after all.",
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "timestamp": 94,
+      "actions": [
+        {
+          "character": "Cuddy",
+          "action_type": "move",
+          "startX": 530,
+          "startY": 669,
+          "endX": 1200,
+          "endY": 669,
+          "scale": 0.5,
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "timestamp": 101,
+      "actions": [
+        {
+          "character": "House",
+          "action_type": "talk",
+          "dialogue": "Another day, another mystery.",
+          "duration": 5
+        }
+      ]
+    },
+    {
+      "timestamp": 107,
+      "actions": [
+        {
+          "character": "Wilson",
+          "action_type": "talk",
+          "dialogue": "And together, we'll always solve them.",
+          "duration": 6
+        }
+      ]
+    }
+  ]
+}

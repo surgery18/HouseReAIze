@@ -1,0 +1,158 @@
+{
+	"title": "A Confrontation in House's Office",
+	"duration": 60,
+	"timeline": [
+		{
+			"timestamp": 0,
+			"actions": [
+				{
+					"action_type": "move",
+					"character": "house",
+					"startX": -100,
+					"startY": 644.3,
+					"endX": 847.9,
+					"endY": 644.3,
+					"duration": 3,
+					"scale": 0.6
+				}
+			]
+		},
+		{
+			"timestamp": 4,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "house",
+					"dialogue": "Wilson, what brings you here?",
+					"duration": 4
+				}
+			]
+		},
+		{
+			"timestamp": 10,
+			"actions": [
+				{
+					"action_type": "move",
+					"character": "wilson",
+					"startX": 1300,
+					"startY": 514.65,
+					"endX": 699.5,
+					"endY": 514.65,
+					"duration": 3,
+					"scale": 0.3
+				}
+			]
+		},
+		{
+			"timestamp": 15,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "wilson",
+					"dialogue": "I just wanted to discuss the recent case with you.",
+					"duration": 4
+				}
+			]
+		},
+		{
+			"timestamp": 22,
+			"actions": [
+				{
+					"action_type": "move",
+					"character": "cuddy",
+					"startX": -100,
+					"startY": 669,
+					"endX": 530,
+					"endY": 669,
+					"duration": 2,
+					"scale": 0.5
+				}
+			]
+		},
+		{
+			"timestamp": 26,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "cuddy",
+					"dialogue": "House, we need to talk about the patient in room 305.",
+					"duration": 4
+				}
+			]
+		},
+		{
+			"timestamp": 32,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "house",
+					"dialogue": "Not now, Cuddy. Can't you see I'm busy?",
+					"duration": 4
+				}
+			]
+		},
+		{
+			"timestamp": 38,
+			"actions": [
+				{
+					"action_type": "move",
+					"character": "chase",
+					"startX": 1300,
+					"startY": 667.85,
+					"endX": 324.35,
+					"endY": 667.85,
+					"duration": 3,
+					"scale": 0.7
+				}
+			]
+		},
+		{
+			"timestamp": 42,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "chase",
+					"dialogue": "Dr. House, I have the test results.",
+					"duration": 3
+				}
+			]
+		},
+		{
+			"timestamp": 47,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "cameron",
+					"dialogue": "Let's all calm down and discuss the case together.",
+					"duration": 3
+				}
+			]
+		},
+		{
+			"timestamp": 52,
+			"actions": [
+				{
+					"action_type": "move",
+					"character": "wilson",
+					"startX": 699.5,
+					"startY": 514.65,
+					"endX": 1300,
+					"endY": 514.65,
+					"duration": 3,
+					"scale": 0.3
+				}
+			]
+		},
+		{
+			"timestamp": 57,
+			"actions": [
+				{
+					"action_type": "speak",
+					"character": "house",
+					"dialogue": "Alright, let's review the case.",
+					"duration": 3
+				}
+			]
+		}
+	]
+}
