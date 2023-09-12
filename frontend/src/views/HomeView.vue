@@ -28,9 +28,16 @@
 			<div class="col-md-4">
 				<h5>Recent Episodes</h5>
 				<ul class="list-unstyled">
-					<li><a href="#">Episode 1: A New Beginning</a></li>
-					<li><a href="#">Episode 2: The Return</a></li>
-					<!-- ... add more as needed -->
+					<ul class="list-unstyled">
+						<li v-for="episode in episodes" :key="episode.title">
+							<router-link
+								:to="{ name: 'ViewEpisode', params: { hash: episode.url } }"
+							>
+								{{ episode.title }}
+								<small>({{ episode.views }} views)</small>
+							</router-link>
+						</li>
+					</ul>
 				</ul>
 			</div>
 		</div>
@@ -125,6 +132,20 @@
 <script>
 	export default {
 		name: "Home",
+		data() {
+			return {
+				episodes: [],
+			}
+		},
+		async created() {
+			try {
+				const response = await fetch("/api/latest-episodes")
+				const json = await response.json()
+				this.episodes = json
+			} catch (e) {
+				console.log(E)
+			}
+		},
 		methods: {
 			generateEpisode() {
 				// Logic to start the episode generation process.

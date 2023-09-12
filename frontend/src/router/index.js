@@ -17,6 +17,11 @@ const router = createRouter({
       name: 'EpisodeGeneration',
       component: EpisodeGenerationView
     },
+    {
+      path: '/episode/:hash',
+      name: 'ViewEpisode',
+      component: EpisodeGenerationView
+    }
   ]
 })
 

@@ -1,5 +1,6 @@
 <script setup>
 	import { RouterLink, RouterView } from "vue-router"
+	import Loader from "@/components/Loader.vue"
 </script>
 
 <template>
@@ -20,6 +21,7 @@
 				</p>
 			</div>
 		</footer>
+		<loader />
 	</div>
 </template>
 

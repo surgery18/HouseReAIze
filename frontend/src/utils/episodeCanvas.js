@@ -36,42 +36,103 @@ export default class EpisodeCanvas {
 		this.activeActions = []
 		this.scenes = {}
 		this.curScene = null
+		this.isFinished = false
 
-		canvas.width = 1024
-		canvas.height = 1024
+		this.resizeCanvas()
+
+		canvas.addEventListener("resize", this.resizeCanvas)
+	}
+	resizeCanvas() {
+		const displayWidth = this.canvas.clientWidth
+		const displayHeight = this.canvas.clientHeight
+
+		// Check if the canvas size has changed
+		// console.log(displayWidth, displayHeight)
+		// if (
+		// 	this.canvas.width !== displayWidth ||
+		// 	this.canvas.height !== displayHeight
+		// ) {
+		// Update the canvas's drawing resolution
+		this.canvas.width = displayWidth
+		this.canvas.height = displayHeight
+
+		this.scaleX = this.canvas.width / 1024
+		this.scaleY = this.canvas.height / 1024
+		// console.log(this.scaleX, this.scaleY)
+		// }
 	}
 
 	callRA() {
 		this.reqId = requestAnimationFrame((delta) => this.mainLoop(delta))
 	}
 
-	async generateEpisode() {
+	async generateEpisode(topic, script, apikey) {
 		this.audioManager.fixSuspended()
 		this.playing = true
+		this.isFinished = false
 		this.startTime = null
 		this.initCanvas(this.canvas)
-		//fetch the episode
-		const response = await fetch("http://127.0.0.1:5000/generate_episode")
-		const resp = await response.json()
-		this.script = resp
+
+		let ret = null
+		if (script) {
+			//fetch script
+			// const response = await fetch("http://localhost:5000/episode/" + hash) //for now
+			// const resp = await response.json()
+			this.script = script
+		} else {
+			//create script
+			try {
+				const response = await fetch("/api/generate_episode", {
+					method: "POST",
+					cors: "no-cors",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						topic,
+						apikey,
+					}),
+				})
+				const resp = await response.json()
+				if (resp.error) {
+					this.playing = false
+					throw new Error(resp.error)
+				} else {
+					this.script = resp.script
+					ret = resp
+				}
+			} catch (e) {
+				alert("Something is wrong")
+				console.log(e)
+				return null
+			}
+		}
 		await this.loadAudio()
 		await this.loadImages()
 		this.initCharacters()
 		this.startTime = Date.now()
-		// this.recorder.initRecorder(this.canvas, this.audioManager.audioDestination)
-		// this.recorder.startRecording()
+		this.recorder.initRecorder(this.canvas, this.audioManager.audioDestination)
+		this.recorder.startRecording()
 		this.callRA()
+		return ret
 	}
+
+	// get isFinished() {
+	// 	return this.currentTimestamp >= +this.script.duration
+	// }
 
 	mainLoop(delta) {
 		if (this.currentTimestamp >= +this.script.duration) {
+			// if (this.isFinished) {
+			console.log("FINISHED SCRIPT")
+			this.isFinished = true
 			// console.log("here")
-			this.isPlaying = false
+			this.playing = false
 			this.currentTimestamp = 0
-			// this.recorder.stopRecording()
+			this.recorder.stopRecording()
 			return
 		}
-		if (!this.isPlaying || delta - this.lastRenderTime <= FRAME_INTERVAL) {
+		if (!this.playing || delta - this.lastRenderTime <= FRAME_INTERVAL) {
 			// console.log(!this.playing, delta - this.lastRenderTime <= FRAME_INTERVAL)
 			return
 		}
@@ -119,10 +180,12 @@ export default class EpisodeCanvas {
 				// this.sceneImage,
 				this.curScene.image,
 				0,
-				0
-				// this.sceneImage.width * this.uniformScale,
-				// this.sceneImage.height * this.uniformScale
+				0,
+				this.curScene.image.width * this.scaleX,
+				this.curScene.image.height * this.scaleY
 			)
+
+			// console.log(this.curScene)
 
 			const sortedCharacters = this._sortByDepth(this.characters)
 			// console.log(sortedCharacters)
@@ -170,11 +233,14 @@ export default class EpisodeCanvas {
 
 			// Translate again by half of the scaled image's width and height.
 			ctx.translate(
-				position.x + image.width * position.scale * 0.5,
-				position.y + image.height * position.scale * 0.5
+				position.x * this.scaleX +
+					image.width * position.scale * this.scaleX * 0.5,
+				position.y * this.scaleY +
+					image.height * position.scale * this.scaleY * 0.5
 			)
 			// Scale the canvas.
 			ctx.scale(position.scale, position.scale)
+			ctx.scale(this.scaleX, this.scaleY)
 
 			// Rotate the canvas.
 			ctx.rotate((position.rotation * Math.PI) / 180)
@@ -245,25 +311,35 @@ export default class EpisodeCanvas {
 				event.playing = true
 				let hasAudio = false
 				let changeScene = null
-				for (const action of event.actions) {
-					action.timestamp = this.currentTimestamp
-					if (action.audio_file) {
-						hasAudio = true
-					}
-					if (action.action_type === "scene") {
-						console.log(" IN HERE")
-						changeScene = action
-					}
-					this.activeActions.push({
-						...action,
-						character: action.character ? action.character.toLowerCase() : null,
-					})
+				// for (const action of event.actions) {
+				// 	action.timestamp = this.currentTimestamp
+				// 	if (action.audio_file) {
+				// 		hasAudio = true
+				// 	}
+				// 	if (action.action_type === "scene") {
+				// 		changeScene = action
+				// 	}
+				// 	this.activeActions.push({
+				// 		...action,
+				// 		character: action.character ? action.character.toLowerCase() : null,
+				// 	})
+				// }
+				const action = event.action ?? event
+				action.timestamp = this.currentTimestamp
+				if (action.audio_file) {
+					hasAudio = true
 				}
+				if (action.action_type === "scene") {
+					changeScene = action
+				}
+				this.activeActions.push({
+					...action,
+					character: action.character ? action.character.toLowerCase() : null,
+				})
 				if (hasAudio) {
 					this.audioManager.playNextAudio()
 				}
 				if (changeScene) {
-					console.log("IN HERE")
 					this.changeScene(changeScene)
 				}
 				found = true
@@ -272,7 +348,7 @@ export default class EpisodeCanvas {
 			if (found) break
 		}
 
-		console.log(ft)
+		// console.log(ft)
 
 		// Process all active actions
 		for (let i = 0; i < this.activeActions.length; i++) {
@@ -357,9 +433,15 @@ export default class EpisodeCanvas {
 			const key = character.name.toLowerCase()
 			// console.log(key, this.characters, this.characters)
 			const image = this.characters[key].image
-			this.characters[key] = {
-				...this.characters[key],
-				position: {
+			//default
+			let position = {
+				x: -100,
+				y: -100,
+				scale: 1,
+				rotation: 0,
+			}
+			if (character.position) {
+				position = {
 					x:
 						character.position.startX -
 						(image.width * character.position.scale) / 2,
@@ -368,47 +450,114 @@ export default class EpisodeCanvas {
 						(image.height * character.position.scale) / 2,
 					scale: character.position.scale,
 					rotation: character.position?.rotation,
-				},
+				}
+			}
+
+			this.characters[key] = {
+				...this.characters[key],
+				position,
 				visible: character.visible,
 			}
-			console.log(key, this.characters[key])
+			// console.log(key, this.characters[key])
 		}
-		this.curScene = this.scenes[action.scene.toLowerCase()]
+		this.curScene = this.scenes[this._sanitizeKey(action.scene)]
 	}
+
+	// displayDialogue(character, dialogue) {
+	// 	const ctx = this.ctx
+	// 	const canvasWidth = ctx.canvas.width
+	// 	const canvasHeight = ctx.canvas.height
+	// 	const position = this.characters[character].position
+
+	// 	ctx.font = "16px Arial"
+	// 	const dialogueWidth = ctx.measureText(dialogue).width + 10
+	// 	const dialogueHeight = 30
+
+	// 	// Adjusted positions
+	// 	let posX = position.x
+	// 	let posY = position.y - 40
+
+	// 	// Boundary checks
+	// 	const padding = 10
+	// 	if (posX + dialogueWidth > canvasWidth) {
+	// 		posX = canvasWidth - dialogueWidth - padding
+	// 	}
+	// 	if (posX < 0) {
+	// 		posX = padding
+	// 	}
+	// 	if (posY - dialogueHeight < 0) {
+	// 		posY = dialogueHeight - padding
+	// 	}
+	// 	if (posY > canvasHeight) {
+	// 		posY = canvasHeight - dialogueHeight - padding
+	// 	}
+
+	// 	ctx.fillStyle = "white"
+	// 	ctx.fillRect(posX, posY, dialogueWidth, dialogueHeight)
+	// 	ctx.fillStyle = "black"
+	// 	ctx.fillText(dialogue, posX + 5, posY + dialogueHeight / 2 + 5) // Centered vertically
+	// }
 
 	displayDialogue(character, dialogue) {
 		const ctx = this.ctx
 		const canvasWidth = ctx.canvas.width
 		const canvasHeight = ctx.canvas.height
-		const position = this.characters[character].position
 
-		ctx.font = "16px Arial"
-		const dialogueWidth = ctx.measureText(dialogue).width + 10
-		const dialogueHeight = 30
+		// Dimensions for the dialogue box
+		const boxHeight = canvasHeight * 0.25
+		const boxWidth = canvasWidth
+		const boxPosX = 0
+		const boxPosY = canvasHeight - boxHeight
 
-		// Adjusted positions
-		let posX = position.x
-		let posY = position.y - 40
+		// Font settings
+		const fontSize = 20
+		const lineHeight = 25
+		const padding = 15
 
-		// Boundary checks
-		const padding = 10
-		if (posX + dialogueWidth > canvasWidth) {
-			posX = canvasWidth - dialogueWidth - padding
-		}
-		if (posX < 0) {
-			posX = padding
-		}
-		if (posY - dialogueHeight < 0) {
-			posY = dialogueHeight - padding
-		}
-		if (posY > canvasHeight) {
-			posY = canvasHeight - dialogueHeight - padding
-		}
+		// Add character's name in bold to the dialogue
+		const fullDialogue = character.toUpperCase() + ": " + dialogue
 
+		// Split the dialogue into lines so it fits inside the box
+		const words = fullDialogue.split(" ")
+		let line = ""
+		let lines = []
+
+		for (let word of words) {
+			let testLine = line + word + " "
+			ctx.font = fontSize + "px Arial"
+			if (line === "" && word !== character) {
+				ctx.font = "bold " + fontSize + "px Arial"
+			}
+			let metrics = ctx.measureText(testLine)
+			let testWidth = metrics.width
+
+			if (testWidth > boxWidth - 2 * padding && line !== "") {
+				lines.push(line)
+				line = word + " "
+			} else {
+				line = testLine
+			}
+		}
+		lines.push(line)
+
+		// Calculate the starting vertical position to center the text in the dialogue box
+		const totalTextHeight = lines.length * lineHeight
+		const centeredStartY = boxPosY + (boxHeight - totalTextHeight) / 2
+
+		// Draw the dialogue box
+		ctx.fillStyle = "rgba(0, 0, 0, 0.75)"
+		ctx.fillRect(boxPosX, boxPosY, boxWidth, boxHeight)
+
+		// Draw the dialogue text line by line
 		ctx.fillStyle = "white"
-		ctx.fillRect(posX, posY, dialogueWidth, dialogueHeight)
-		ctx.fillStyle = "black"
-		ctx.fillText(dialogue, posX + 5, posY + dialogueHeight / 2 + 5) // Centered vertically
+		for (let i = 0; i < lines.length; i++) {
+			if (i === 0) {
+				ctx.font = "bold " + fontSize + "px Arial"
+			} else {
+				ctx.font = fontSize + "px Arial"
+			}
+			ctx.fillText(lines[i], boxPosX + padding, centeredStartY + i * lineHeight)
+		}
 	}
 
 	// displayDialogue(character, dialogue) {
@@ -442,12 +591,19 @@ export default class EpisodeCanvas {
 		//parse script for all dialogue filenames and load them into the audios object
 		const timeline = this.script.timeline
 		for (const event of timeline) {
-			for (const action of event.actions) {
-				if (action.audio_file) {
-					this.audioManager.addAudio(
-						"http://127.0.0.1:5000/tts/" + action.audio_file
-					)
-				}
+			// for (const action of event.actions) {
+			// 	if (action.audio_file) {
+			// 		this.audioManager.addAudio(
+			// 			"http://127.0.0.1:5000/tts/" + action.audio_file
+			// 		)
+			// 	}
+			// }
+			const action = event.action ?? event
+			if (action.audio_file) {
+				this.audioManager.addAudio(
+					// "http://127.0.0.1:5000/tts/" + action.audio_file
+					action.audio_url
+				)
 			}
 		}
 		await this.audioManager.preloadInitialAudio()
@@ -535,7 +691,7 @@ export default class EpisodeCanvas {
 
 		const allScenes = this.script.all_scenes
 		for (const scene of allScenes) {
-			const key = scene.toLowerCase()
+			const key = this._sanitizeKey(scene)
 			//load scenes
 			// console.log(key, scenes[key])
 			scenes[key].img.src = scenes[key].loc
@@ -547,6 +703,8 @@ export default class EpisodeCanvas {
 					img.onload = () => {
 						const originalWidth = img.width
 						const originalHeight = img.height
+						// const originalWidth = 1024
+						// const originalHeight = 1024
 						const scaleX = this.canvas.width / originalWidth
 						const scaleY = this.canvas.height / originalHeight
 						this.scenes[key].uniformScale = Math.min(scaleX, scaleY)
@@ -598,5 +756,20 @@ export default class EpisodeCanvas {
 		// 		visible: character.visible,
 		// 	}
 		// }
+	}
+
+	_sanitizeKey(key) {
+		let ret = key
+			// .trim()
+			.toLowerCase()
+			.replace(/scene/i, "")
+			.replace(/\s+/, "_")
+			.trim()
+
+		if (ret[ret.length - 1] === "_") {
+			ret = ret.substr(0, ret.length - 1)
+		}
+
+		return ret
 	}
 }

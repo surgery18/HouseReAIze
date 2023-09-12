@@ -22,11 +22,11 @@ Generate an episode script based on the popular medical drama series, "House M.D
 - When changing to a new scene, you DO NOT call a scene action_type of scene just to fade out or whatever, The action type would just be fade and it would take care of it. So don't call it twice in consecutive order
 - The last events timestamp and duration must add up to the episode total duration
 - Scene Transitions: Each scene transition should only be mentioned once. Avoid repetitive transitions to the same scene (e.g., do not fade out and then fade back into the same scene). Transition to a new scene directly.
-- Multiple Actions: A single timestamp can encompass multiple actions, representing simultaneous or near-simultaneous events.
-- Isolated Events: Certain actions, due to their significance or the nature of the narrative, should always be isolated to their own timestamp. This ensures clarity and avoids potential overlap of major events. Examples of such actions include:
-  -- Character dialogues (each dialogue from a character should be its own event).
-  -- Scene transitions.
-  -- Other major events that shift the focus or direction of the narrative.
+- Single Action Events: Each timestamp in the timeline should represent a single, distinct action. This provides clarity and ensures each action receives the appropriate focus and duration in the narrative.
+- Overlapping Durations: While each timestamp represents a single action, the duration of an action can extend beyond the next timestamp. This allows for the simulation of simultaneous events or actions that continue in the background of other events. For example, a character might start talking at timestamp 10 with a duration of 5 seconds, but another character might start a movement at timestamp 12. This would represent the second character moving while the first character is still speaking.
+- Isolated Major Events: Events like scene transitions and significant plot points should always have their own timestamp to ensure they stand out and are not overshadowed by other actions.
+- Complete InitialState Data: For each scene's initialState, every character listed, whether visible or not, must have a defined position (startX, startY, scale, and rotation). If a character is initially invisible or off-screen but will be used later in the scene, they should still have a position set in the initialState.
+- Direct Scene Introduction: If a character is intended to be on screen at the beginning of a scene, they should be set as "visible": true in the initialState of the scene. Do not use the "appear" action immediately after a scene transition to introduce characters that are meant to be present from the start of the scene. Instead, make them visible by default using the initialState.
 
 ## Topic
 
@@ -103,7 +103,7 @@ all_characters: A list of all the characters that will appear in this episode.
 timeline: This is a list detailing what happens at specific times in the episode. Each event in the timeline has:
 
 -timestamp: The time (in seconds) when the event starts.
--actions: A list of things happening at that timestamp. Each action has an action_type which can be one of the following:
+-action: What is happening at that timestamp. The action has an action_type which can be one of the following:
 --appear: A character comes into the scene.
 --talk: A character says something. This action will also have a dialogue detailing what the character says.
 --move: A character moves to a new location on the screen. This action will also have details about the start and end position of the movement.
@@ -166,4 +166,4 @@ rotation: The rotation angle of the character, in degrees.
 
 ## Output
 
-ONLY A JSON OBJECT NOTHING ELSE
+ONLY A JSON OBJECT NOTHING ELSE. DO NOT PUT IN CODE BLOCK. ALSO MAKE SURE THAT THE LAST TIMESTAMP + DURATION ADDS UP TO 120!
