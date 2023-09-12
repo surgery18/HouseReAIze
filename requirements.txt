@@ -1,0 +1,7 @@
+certifi==2023.7.22
+elevenlabs==0.2.24
+Flask==2.3.3
+openai==0.27.10
+pymongo==4.5.0
+python-dotenv==1.0.0
+w3storage==0.0.1
