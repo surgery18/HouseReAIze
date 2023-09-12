@@ -134,6 +134,8 @@ def generate_episode():
     url = generate_hash(data)
     print(data)
     print(url)
+    #attach audio files
+    script = json.loads(data)
 
     #generate the URL for this script
     _id = scripts_collection.insert_one({
@@ -141,9 +143,7 @@ def generate_episode():
         'script': script,
         'views': 0,
     })
-
-    #attach audio files
-    script = json.loads(data)
+    
     for entry in script["timeline"]:
         # action = entry.get('action', entry)
         action = entry.get('action')
@@ -163,7 +163,9 @@ def generate_episode():
             action['audio_cid'] = ipfs
             action['audio_file'] = fn
 
+    print("Updating entry")
     scripts_collection.update_one({'_id': _id.inserted_id}, {'$set': {'script': script}})
+    print("Done")
 
     for entry in script["timeline"]:
         action = entry.get('action')
@@ -172,7 +174,7 @@ def generate_episode():
             action['audio_url'] = "https://" + cid + '.ipfs.dweb.link'
 
     # response = jsonify(script)
-    response = jsonify({'_id': _id.inserted_id, 'url': url, 'script': script, 'views': 0})
+    response = jsonify({'_id': str(_id.inserted_id), 'url': url, 'script': script, 'views': 0})
     # response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
