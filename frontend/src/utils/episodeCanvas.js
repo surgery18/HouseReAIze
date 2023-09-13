@@ -698,6 +698,10 @@ export default class EpisodeCanvas {
 				img: new Image(),
 				loc: OperatingRoom,
 			},
+			or_room: {
+				img: new Image(),
+				loc: OperatingRoom,
+			},
 		}
 
 		const allScenes = this.script.all_scenes
