@@ -662,6 +662,8 @@ export default class EpisodeCanvas {
 			imagePromises.push(loadImage(img))
 		}
 
+		// console.log("DONE WITH CHARACTERS")
+
 		const scenes = {
 			office: {
 				img: new Image(),
@@ -675,7 +677,15 @@ export default class EpisodeCanvas {
 				img: new Image(),
 				loc: Meeting,
 			},
+			meeting_room: {
+				img: new Image(),
+				loc: Meeting,
+			},
 			mri: {
+				img: new Image(),
+				loc: MRI,
+			},
+			mri_room: {
 				img: new Image(),
 				loc: MRI,
 			},

@@ -34,7 +34,7 @@ By default the episode should revolve around a rare and challenging medical case
 
 ## Characters
 
-House, Cuddy, Wilson, Chase, Cameron, and a Patient. You don't have to use all the characters. They are just avaliable to use. However, House must always be in the script and the patient must be in the script.
+These are the only available characters to use: House, Cuddy, Wilson, Chase, Cameron, and a Patient. You don't have to use all the characters. They are just avaliable to use. However, House must always be in the script and the patient must be in the script.
 
 ## Scenes/Nodes
 

@@ -40,5 +40,5 @@ RUN pip3 install gunicorn
 # Expose port for the Flask app to run on
 EXPOSE 5000
 
-CMD ["gunicorn", "backend.app:app", "-b", "0.0.0.0:5000"]
+CMD ["gunicorn", "backend.app:app", "-b", "0.0.0.0:5000", "--timeout", "600"]
 
