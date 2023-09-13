@@ -8,40 +8,39 @@
 					Dive into the AI-driven world of medicine with "HouseReAIze." Here,
 					each episode unfolds unpredictably, driven by advanced algorithms
 					inspired by the iconic medical drama. From mysterious illnesses to Dr.
-					House's unique insights, anticipate a fresh adventure each time. Click
-					"Generate Episode" to witness a dynamic story, and let the future of
-					medical storytelling mesmerize you!
+					House's unique insights, anticipate a fresh adventure each time.
 				</p>
 			</div>
 		</div>
 
 		<!-- Generate Episode Button & Sidebar (if needed) -->
-		<div class="row">
-			<div class="col-md-8">
+		<!-- <div class="row"> -->
+		<!-- <div class="col-md-8">
 				<div class="d-flex justify-content-center">
 					<button class="btn btn-primary btn-lg" @click="generateEpisode">
 						Generate Episode
 					</button>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="col-md-4">
-				<h5>Recent Episodes</h5>
+		<!-- <div class="col-md-4"> -->
+		<div class="text-center mb-2">
+			<h5>Recent Episodes</h5>
+			<ul class="list-unstyled">
 				<ul class="list-unstyled">
-					<ul class="list-unstyled">
-						<li v-for="episode in episodes" :key="episode.title">
-							<router-link
-								:to="{ name: 'ViewEpisode', params: { hash: episode.url } }"
-							>
-								{{ episode.title }}
-								<small>({{ episode.views }} views)</small>
-							</router-link>
-						</li>
-					</ul>
+					<li v-for="episode in episodes" :key="episode.title">
+						<router-link
+							:to="{ name: 'ViewEpisode', params: { hash: episode.url } }"
+						>
+							{{ episode.title }}
+							<small>({{ episode.views }} views)</small>
+						</router-link>
+					</li>
 				</ul>
-				<router-link :to="{ name: 'Episodes' }">View more episodes</router-link>
-			</div>
+			</ul>
+			<router-link :to="{ name: 'Episodes' }">View more episodes</router-link>
 		</div>
+		<!-- </div> -->
 
 		<!-- How it Works Section -->
 		<section class="container-fluid bg-light py-5">
@@ -57,10 +56,7 @@
 				<div class="col-md-4 text-center">
 					<i class="bi bi-play-circle" style="font-size: 2rem"></i>
 					<h4>Dynamic Playback</h4>
-					<p>
-						Experience a new, unpredictable episode every time you click
-						"Generate".
-					</p>
+					<p>Experience a new, unpredictable episode.</p>
 				</div>
 				<div class="col-md-4 text-center">
 					<i class="bi bi-person" style="font-size: 2rem"></i>
@@ -119,13 +115,13 @@
 				</div>
 			</div>
 
-			<div class="row mt-5">
+			<!-- <div class="row mt-5">
 				<div class="col-12 text-center">
 					<button class="btn btn-primary btn-lg" @click="generateEpisode">
 						Generate Your Own Episode Now!
 					</button>
 				</div>
-			</div>
+			</div> -->
 		</section>
 	</div>
 </template>
