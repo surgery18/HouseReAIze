@@ -39,6 +39,7 @@
 						</li>
 					</ul>
 				</ul>
+				<router-link :to="{ name: 'Episodes' }">View more episodes</router-link>
 			</div>
 		</div>
 

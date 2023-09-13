@@ -197,6 +197,19 @@ def latest_episodes():
         })
     return jsonify(data)
 
+@app.route('/api/episodes', methods=['GET'])
+def all_episodes():
+    episodes = scripts_collection.find().sort('_id', -1)
+    episodes = list(episodes)
+    data = []
+    for episode in episodes:
+        data.append({
+            'url': episode['url'],
+            'title': episode['script']['title'],
+            'views': episode['views'],
+        })
+    return jsonify(data)
+
 
 @app.route('/hello', methods=['GET'])
 def hello():

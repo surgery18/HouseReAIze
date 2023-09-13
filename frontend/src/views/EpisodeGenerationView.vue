@@ -17,7 +17,8 @@
 				<!-- User API Key Input -->
 				<div class="api-key-container">
 					<label for="api-key"
-						>Enter your Open API key (This will cost around ~$0.30):</label
+						>Enter your Open API key (This will cost around ~$0.30 and the key
+						is not stored):</label
 					>
 					<input
 						class="form-control"
