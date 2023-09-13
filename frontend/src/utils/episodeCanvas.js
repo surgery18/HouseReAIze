@@ -307,7 +307,8 @@ export default class EpisodeCanvas {
 		for (const index in this.script.timeline) {
 			const event = this.script.timeline[index]
 			let found = false
-			if (event.timestamp == Math.floor(ft) && !event.playing) {
+			// if (event.timestamp == Math.floor(ft) && !event.playing) {
+			if (event.timestamp <= ft && !event.playing) {
 				event.playing = true
 				let hasAudio = false
 				let changeScene = null
