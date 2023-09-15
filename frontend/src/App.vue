@@ -15,6 +15,9 @@
 					educational purposes, and is not affiliated with the official "House
 					M.D." series.
 				</p>
+				<p class="text-muted text-center my-3">
+					Text-to-speech is generated using elevenlabs.io.
+				</p>
 				<p class="text-muted text-center mt-3">
 					&copy; {{ new Date().getFullYear() }} HouseReAIze. All Rights
 					Reserved.
