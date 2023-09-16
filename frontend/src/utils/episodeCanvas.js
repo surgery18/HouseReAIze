@@ -333,6 +333,7 @@ export default class EpisodeCanvas {
 				if (action.action_type === "scene") {
 					changeScene = action
 				}
+				if (!action.duration && event.duration) action.duration = event.duration
 				this.activeActions.push({
 					...action,
 					character: action.character ? action.character.toLowerCase() : null,
@@ -405,6 +406,8 @@ export default class EpisodeCanvas {
 					fraction
 				)
 
+				// console.log(position, currentX, currentY)
+
 				this.characters[character].position.x = currentX
 				this.characters[character].position.y = currentY
 				this.characters[character].position.scale = scale
@@ -430,6 +433,7 @@ export default class EpisodeCanvas {
 		this.initCharacters()
 		//now set the characters initial positions
 		const initState = action.initialState.characters
+
 		for (const character of initState) {
 			const key = character.name.toLowerCase()
 			// console.log(key, this.characters, this.characters)
@@ -442,6 +446,11 @@ export default class EpisodeCanvas {
 				rotation: 0,
 			}
 			if (character.position) {
+				if (character.position.x)
+					character.position.startX = character.position.x
+				if (character.position.y)
+					character.position.startY = character.position.y
+
 				position = {
 					x:
 						character.position.startX -
