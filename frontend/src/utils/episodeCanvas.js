@@ -609,7 +609,7 @@ export default class EpisodeCanvas {
 			// 	}
 			// }
 			const action = event.action ?? event
-			if (action.audio_file) {
+			if (action.audio_url) {
 				this.audioManager.addAudio(
 					// "http://127.0.0.1:5000/tts/" + action.audio_file
 					action.audio_url
