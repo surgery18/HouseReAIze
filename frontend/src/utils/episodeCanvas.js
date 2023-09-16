@@ -327,7 +327,7 @@ export default class EpisodeCanvas {
 				// }
 				const action = event.action ?? event
 				action.timestamp = this.currentTimestamp
-				if (action.audio_file) {
+				if (action.audio_url) {
 					hasAudio = true
 				}
 				if (action.action_type === "scene") {
