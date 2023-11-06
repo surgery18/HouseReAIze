@@ -6,7 +6,7 @@ Generate an episode script based on the popular medical drama series, "House M.D
 
 ## Requirements
 
-- Episode duration must be 2 minutes long
+- Episode duration should be at least 2 minutes long
 - Only one character can speak at a time
 - A character cannot be on the same node at a time
 - A character can either start off the screen, invisible, or be visible at a node already
@@ -23,8 +23,7 @@ Generate an episode script based on the popular medical drama series, "House M.D
 - The last events timestamp and duration must add up to the episode total duration
 - Scene Transitions: Each scene transition should only be mentioned once. Avoid repetitive transitions to the same scene (e.g., do not fade out and then fade back into the same scene). Transition to a new scene directly.
 - Single Action Events: Each timestamp in the timeline should represent a single, distinct action. This provides clarity and ensures each action receives the appropriate focus and duration in the narrative.
-- Overlapping Durations: While each timestamp represents a single action, the duration of an action can extend beyond the next timestamp. This allows for the simulation of simultaneous events or actions that continue in the background of other events. For example, a character might start talking at timestamp 10 with a duration of 5 seconds, but another character might start a movement at timestamp 12. This would represent the second character moving while the first character is still speaking.
-- Isolated Major Events: Events like scene transitions and significant plot points should always have their own timestamp to ensure they stand out and are not overshadowed by other actions.
+- Overlapping Durations: While each timestamp represents a single action, the duration of an action CANNOT extend beyond the next timestamp.
 - Complete InitialState Data: For each scene's initialState, every character listed, whether visible or not, must have a defined position (startX, startY, scale, and rotation). If a character is initially invisible or off-screen but will be used later in the scene, they should still have a position set in the initialState.
 - Direct Scene Introduction: If a character is intended to be on screen at the beginning of a scene, they should be set as "visible": true in the initialState of the scene. Do not use the "appear" action immediately after a scene transition to introduce characters that are meant to be present from the start of the scene. Instead, make them visible by default using the initialState.
 
@@ -163,6 +162,17 @@ startX: The horizontal position (x-coordinate).
 startY: The vertical position (y-coordinate).
 scale: The size scale of the character. For instance, 1 is full size, 0.5 is half size.
 rotation: The rotation angle of the character, in degrees.
+
+Example of an action that plays at the 1 second mark
+{
+"timestamp": 1,
+"character": "house",
+"action": {
+"action_type": "talk",
+"dialogue": "Hello World!",
+"duration": 2
+}
+}
 
 ## Output
 

@@ -5,13 +5,14 @@ import hashlib
 import json
 from elevenlabs import set_api_key, generate
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
 from pymongo import MongoClient
 # from flask_cors import CORS
 import w3storage
 import certifi
 
 load_dotenv('.env')
+
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 site_path = os.path.abspath(cwd + "/../frontend/dist")
@@ -64,6 +65,10 @@ def fetch_episode(hash):
         for entry in script["timeline"]:
             # action = entry.get('action', entry)
             action = entry.get('action')
+            character = action.get('character', None)
+            if character is None:
+                action['character'] = entry.get('character')
+                
             cid = action.get('audio_cid')
             if cid:
                 action['audio_url'] = "https://" + cid + '.ipfs.dweb.link'
@@ -85,7 +90,9 @@ def fix_episode(hash):
         script = data['script']
         for entry in script["timeline"]:
             action = entry.get('action')
-            character = action.get('character')
+            character = action.get('character', None)
+            if character is None:
+                character = entry.get('character')
             #to lowercase
             dialogue = action.get('dialogue', None)
             if dialogue and character:
@@ -113,9 +120,11 @@ def generate_episode():
         return jsonify({'error': 'KEY MUST BE PRESENT'}), 400
     #call openai gpt4 to generate episode
     script = {}
-    openai.api_key = api_key
-    response = openai.ChatCompletion.create(
-         model="gpt-4",
+    # oclient.api_key = api_key
+    oclient = OpenAI(api_key=api_key)
+    response = oclient.chat.completions.create(
+         model="gpt-4-1106-preview",
+         response_format={"type": "json_object"},
          messages=[
               {
                    "role": "system",
@@ -129,7 +138,8 @@ def generate_episode():
     )
     
     # print(response)
-    data = response["choices"][0]["message"]["content"]
+    # data = response["choices"][0]["message"]["content"]
+    data = response.choices[0].message.content
     #get hash of the pure response
     url = generate_hash(data)
     print(data)
@@ -147,7 +157,9 @@ def generate_episode():
     for entry in script["timeline"]:
         # action = entry.get('action', entry)
         action = entry.get('action')
-        character = action.get('character')
+        character = action.get('character', None)
+        if character is None:
+                character = entry.get('character')
         #to lowercase
         dialogue = action.get('dialogue', None)
         if dialogue and character:
