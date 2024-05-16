@@ -24,8 +24,7 @@
 						class="form-control"
 						type="text"
 						id="api-key"
-						v-model="apiKey"
-					/>
+						v-model="apiKey" />
 				</div>
 
 				<!-- Generate Button -->
@@ -34,8 +33,7 @@
 						class="form-control form-control-lg"
 						type="text"
 						placeholder="Want to make your own topic? Go ahead. Leave blank for random."
-						v-model="topic"
-					/>
+						v-model="topic" />
 					<br />
 					<button @click="generateEpisode" class="btn btn-primary btn-lg mt-4">
 						Generate Episode
@@ -55,8 +53,7 @@
 				<div>
 					<button
 						class="btn btn-lg btn-success my-3"
-						@click="ec.recorder.download()"
-					>
+						@click="ec.recorder.download()">
 						DOWNLOAD EPISODE
 					</button>
 				</div>
@@ -67,14 +64,12 @@
 							type="text"
 							class="form-control"
 							:value="getShareUrl"
-							readonly
-						/>
+							readonly />
 						<div class="input-group-append">
 							<button
 								class="btn btn-outline-secondary"
 								type="button"
-								@click="copyLink"
-							>
+								@click="copyLink">
 								Copy
 							</button>
 						</div>
@@ -83,13 +78,11 @@
 						<i
 							class="bi bi-facebook mx-2"
 							style="font-size: 36px"
-							@click="shareFb"
-						></i>
+							@click="shareFb"></i>
 						<i
 							class="bi bi-twitter mx-2"
 							style="font-size: 36px"
-							@click="shareTwitter"
-						></i>
+							@click="shareTwitter"></i>
 					</div>
 				</div>
 				<button @click="$router.push('/')" class="btn btn-primary btn-lg">
@@ -104,8 +97,7 @@
 						ref="episodeCanvas"
 						id="myCanvas"
 						width="1024"
-						height="1024"
-					></canvas>
+						height="1024"></canvas>
 				</div>
 			</div>
 		</div>
@@ -140,6 +132,10 @@
 			this.$refs.canvasContainer.style.display = "none"
 			// console.log(this.$route)
 			// console.log(window.location)
+		},
+		beforeUnmount() {
+			console.log("BAM")
+			if (this.ec) this.ec.destroy()
 		},
 		computed: {
 			isHash() {

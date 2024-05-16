@@ -42,6 +42,14 @@ export default class EpisodeCanvas {
 
 		canvas.addEventListener("resize", this.resizeCanvas)
 	}
+
+	destroy() {
+		cancelAnimationFrame(this.reqId)
+		this.canvas.removeEventListener("resize", this.resizeCanvas)
+		this.audioManager.destroy()
+		this.recorder.stopRecording()
+	}
+
 	resizeCanvas() {
 		const displayWidth = this.canvas.clientWidth
 		const displayHeight = this.canvas.clientHeight

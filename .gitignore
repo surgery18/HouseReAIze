@@ -30,3 +30,4 @@ coverage
 tts/
 *.vars
 wrangler.toml
+.wrangler

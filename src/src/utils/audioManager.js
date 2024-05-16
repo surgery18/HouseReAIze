@@ -6,6 +6,13 @@ export default class AudioManager {
 		this.audioDestination = this._audioContext.createMediaStreamDestination()
 	}
 
+	destroy() {
+		this._audios = {}
+		this._sequence = []
+		this._audioContext.close()
+		this._audioContext = null
+	}
+
 	addAudio(url) {
 		this._sequence.push(url)
 		this._audios[url] = null
