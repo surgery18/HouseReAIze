@@ -22,10 +22,11 @@ export async function onRequestGet(context) {
 				const cf = action.audio_cf
 				// console.log(action)
 				if (cid) {
-					action.audio_url = `https://${cid}.ipfs.w3s.link`
+					// action.audio_url = `https://${cid}.ipfs.w3s.link`
+					action.audio_url = "/api/audio/ipfs/" + action.audio_file
 					// console.log(action.audio_url, "cid")
 				} else if (cf) {
-					action.audio_url = "/api/audio/" + action.audio_file
+					action.audio_url = "/api/audio/r2/" + action.audio_file
 					// console.log(action.audio_url, "s3")
 				} else {
 					// console.log(action.audio_file, "no")

@@ -4,7 +4,6 @@ export default class AudioManager {
 		this._sequence = []
 		this._audioContext = new (AudioContext || webkitAudioContext)()
 		this.audioDestination = this._audioContext.createMediaStreamDestination()
-		this._isPlaying = false
 	}
 
 	destroy() {
@@ -12,7 +11,6 @@ export default class AudioManager {
 		this._sequence = []
 		this._audioContext.close()
 		this._audioContext = null
-		this._isPlaying = false
 	}
 
 	addAudio(url) {
@@ -48,13 +46,9 @@ export default class AudioManager {
 
 			source.onended = () => {
 				delete this._audios[head]
-				this._isPlaying = false
-				if (this._sequence.length > 0) {
-					this.playNextAudio()
-				}
 			}
+
 			source.start(0)
-			this._isPlaying = true
 
 			if (this._sequence.length > 0) {
 				const url = this._sequence[0]
@@ -64,10 +58,6 @@ export default class AudioManager {
 				}
 			}
 		}
-	}
-
-	isPlaying() {
-		return this._isPlaying
 	}
 
 	state() {
