@@ -6,7 +6,8 @@
 		"dev": "vite --host",
 		"build": "vite build",
 		"watch": "vite build --watch",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"start": "wrangler pages dev ."
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.576.0",

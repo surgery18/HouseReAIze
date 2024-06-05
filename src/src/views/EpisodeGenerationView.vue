@@ -134,7 +134,7 @@
 			// console.log(window.location)
 		},
 		beforeUnmount() {
-			console.log("BAM")
+			// console.log("BAM")
 			if (this.ec) this.ec.destroy()
 		},
 		computed: {
