@@ -14,7 +14,8 @@ export async function onRequestPost(context) {
 	const genai = new GoogleGenerativeAI(context.env.GOOGLE_API_KEY)
 
 	const model = genai.getGenerativeModel({
-		model: "gemini-1.5-pro-latest",
+		// model: "gemini-1.5-pro-latest",
+		model: "gemini-2.0-flash-exp",
 	})
 
 	//populate the message for the ai

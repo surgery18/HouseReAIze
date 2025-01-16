@@ -37,6 +37,7 @@ export default class EpisodeCanvas {
 		this.scenes = {}
 		this.curScene = null
 		this.isFinished = false
+		this.offsetTime = 0
 
 		this.resizeCanvas()
 
@@ -131,7 +132,7 @@ export default class EpisodeCanvas {
 	// }
 
 	mainLoop(delta) {
-		if (this.currentTimestamp >= +this.script.duration) {
+		if (this.currentTimestamp >= +this.script.duration + this.offsetTime) {
 			// if (this.isFinished) {
 			console.log("FINISHED SCRIPT")
 			this.isFinished = true
@@ -317,7 +318,13 @@ export default class EpisodeCanvas {
 			const event = this.script.timeline[index]
 			let found = false
 			// if (event.timestamp == Math.floor(ft) && !event.playing) {
-			if (event.timestamp <= ft && !event.playing) {
+			if (event.timestamp + this.offsetTime <= ft && !event.playing) {
+				//if sound is still playing break out of loop.
+				if (this.audioManager.currentlyPlaying) {
+					this.offsetTime += deltaTime
+					break
+				}
+
 				event.playing = true
 				let hasAudio = false
 				let changeScene = null
@@ -395,7 +402,7 @@ export default class EpisodeCanvas {
 				const { startX, startY, endX, endY, scale, rotation } = position
 				// console.log(character, duration)
 				const fraction = Math.min(
-					(this.currentTimestamp - timestamp) / duration,
+					(this.currentTimestamp - timestamp) / (duration ?? 2),
 					1
 				)
 
@@ -657,10 +664,19 @@ export default class EpisodeCanvas {
 			},
 		}
 
+		//let's not use all_characters anymore and just parse the time line and fetch all the unique characters
+		const charSet = new Set()
+		for (const time of this.script.timeline) {
+			if (time.action && time.action?.character) {
+				charSet.add(time.action.character.toLowerCase())
+			}
+		}
+		const allChar = Array.from(charSet) || []
+
 		//get all_characters to see what needs to be loaded
-		const allChar = this.script.all_characters
-		for (const character of allChar) {
-			const key = character.toLowerCase()
+		// const allChar = this.script.all_characters
+		for (const key of allChar) {
+			// const key = character.toLowerCase()
 			this.characters[key] = {}
 			// if (!this.characters[key]) continue
 			//load it
@@ -722,7 +738,16 @@ export default class EpisodeCanvas {
 			},
 		}
 
-		const allScenes = this.script.all_scenes
+		//let's not use all_scenes anymore and just parse the time line and fetch all the unique scenes
+		const sceneSet = new Set()
+		for (const time of this.script.timeline) {
+			if (time.action && time.action.action_type === "scene") {
+				sceneSet.add(time.action.scene)
+			}
+		}
+		const allScenes = Array.from(sceneSet) || []
+
+		// const allScenes = this.script.all_scenes
 		for (const scene of allScenes) {
 			const key = this._sanitizeKey(scene)
 			//load scenes

@@ -90,8 +90,6 @@ The script will be structured in the following way:
 - **title:** This is the name of the episode. It should be catchy and relevant to the episode's theme.
 - **description:** This is the description of the episode.
 - **duration:** This is the total runtime of the episode in seconds. For instance, 300 seconds mean the episode is 5 minutes long.
-- **all_scenes:** A list of all the places or settings that will be shown in this episode.
-- **all_characters:** A list of all the characters that will appear in this episode.
 - **timeline:** This is a list detailing what happens at specific times in the episode. Each event in the timeline has:
   - **timestamp:** The time (in seconds) when the event starts.
   - **action:** What is happening at that timestamp. The action has an action_type which can be one of the following:
@@ -107,6 +105,7 @@ The script will be structured in the following way:
     - **move:** Represents a character moving from one spot to another.
       - character: The name of the character that is moving.
       - action_type: Should be set to "move".
+      - duration: Duration in seconds for how long this action takes.
       - position: Details about the movement:
         - startX: The starting horizontal position (x-coordinate).
         - startY: The starting vertical position (y-coordinate).
