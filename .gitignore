@@ -31,3 +31,4 @@ tts/
 *.vars
 wrangler.toml
 .wrangler
+/src/.wrangler
