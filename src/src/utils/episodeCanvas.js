@@ -75,7 +75,7 @@ export default class EpisodeCanvas {
 		this.reqId = requestAnimationFrame((delta) => this.mainLoop(delta))
 	}
 
-	async generateEpisode(topic, script, apikey) {
+	async generateEpisode(topic, script) {
 		this.audioManager.fixSuspended()
 		this.playing = true
 		this.isFinished = false
@@ -99,7 +99,7 @@ export default class EpisodeCanvas {
 					},
 					body: JSON.stringify({
 						topic,
-						apikey,
+						// apikey,
 					}),
 				})
 				const resp = await response.json()
@@ -133,14 +133,16 @@ export default class EpisodeCanvas {
 
 	mainLoop(delta) {
 		if (this.currentTimestamp >= +this.script.duration + this.offsetTime) {
-			// if (this.isFinished) {
-			console.log("FINISHED SCRIPT")
-			this.isFinished = true
-			// console.log("here")
-			this.playing = false
-			this.currentTimestamp = 0
-			this.recorder.stopRecording()
-			return
+			if (!this.audioManager.isPlaying()) {
+				// if (this.isFinished) {
+				console.log("FINISHED SCRIPT")
+				this.isFinished = true
+				// console.log("here")
+				this.playing = false
+				this.currentTimestamp = 0
+				this.recorder.stopRecording()
+				return
+			}
 		}
 		if (!this.playing || delta - this.lastRenderTime <= FRAME_INTERVAL) {
 			// console.log(!this.playing, delta - this.lastRenderTime <= FRAME_INTERVAL)
@@ -669,9 +671,16 @@ export default class EpisodeCanvas {
 		for (const time of this.script.timeline) {
 			if (time.action && time.action?.character) {
 				charSet.add(time.action.character.toLowerCase())
+			} else if (time?.action?.initialState?.characters) {
+				//loop through it
+				for (const character of time.action.initialState.characters) {
+					charSet.add(character.name.toLowerCase())
+				}
 			}
 		}
 		const allChar = Array.from(charSet) || []
+
+		// console.log(this.script)
 
 		//get all_characters to see what needs to be loaded
 		// const allChar = this.script.all_characters

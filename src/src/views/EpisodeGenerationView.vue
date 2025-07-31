@@ -1,7 +1,7 @@
 <template>
 	<div class="episode-generation-page">
 		<div class="main-content">
-			<div class="episode-details" v-if="obj">
+			<div class="episode-details" v-if="obj.script">
 				<h3>Episode Details</h3>
 				<p v-if="obj.script">Title: {{ obj.script.title }}</p>
 				<p v-if="obj.script">Description: {{ obj.script.description }}</p>
@@ -15,7 +15,7 @@
 				</div>
 
 				<!-- User API Key Input -->
-				<div class="api-key-container">
+				<!--<div class="api-key-container">
 					<label for="api-key"
 						>Enter your Open API key (This will cost around ~$0.30 and the key
 						is not stored):</label
@@ -25,7 +25,7 @@
 						type="text"
 						id="api-key"
 						v-model="apiKey" />
-				</div>
+				</div>-->
 
 				<!-- Generate Button -->
 				<div class="generate-button-container">
@@ -114,7 +114,7 @@
 				ec: null,
 				topic: "",
 				obj: {},
-				apiKey: "",
+				// apiKey: "",
 			}
 		},
 		setup() {
@@ -193,8 +193,8 @@
 
 					const ret = await this.ec.generateEpisode(
 						this.topic,
-						this.obj.script,
-						this.apiKey
+						this.obj.script
+						// this.apiKey
 					)
 					if (ret) {
 						this.obj = ret

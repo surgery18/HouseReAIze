@@ -1,5 +1,5 @@
 import GetMongo from "../../cf-utils/mongodb"
-import { GoogleGenerativeAI } from "@google/generative-ai"
+import { GoogleGenAI } from "@google/genai"
 import { RequestMD } from "../../cf-utils/request"
 import md5 from "md5"
 import genAudioForScript from "../../cf-utils/genAudioForScript"
@@ -11,26 +11,35 @@ export async function onRequestPost(context) {
 
 	//load up the model
 	// console.log(context.env.GOOGLE_API_KEY)
-	const genai = new GoogleGenerativeAI(context.env.GOOGLE_API_KEY)
-
-	const model = genai.getGenerativeModel({
-		// model: "gemini-1.5-pro-latest",
-		model: "gemini-2.0-flash-exp",
-	})
+	const ai = new GoogleGenAI({ apiKey: context.env.GOOGLE_API_KEY })
 
 	//populate the message for the ai
-	const prompt_parts = ["SYSTEM: " + RequestMD, "\n\nUSER: ", topic]
-	const response = await model.generateContent(prompt_parts, {
-		temperature: 0.4,
-		topK: 32,
-		topP: 1,
-		maxOutputTokens: 8192,
+	// const prompt_parts = ["SYSTEM: " + RequestMD, "\n\nUSER: ", topic]
+	const response = await ai.models.generateContent({
+		model: "gemini-2.5-flash",
+		contents: [
+			{
+				role: "user",
+				parts: [
+					{
+						text: topic,
+					},
+				],
+			},
+		],
+		config: {
+			systemInstruction: [
+				{
+					text: RequestMD,
+				},
+			],
+			// 	tools: [],
+			// 	thinkingConfig: {
+			// 		thinkingBudget: 0,
+			// 	},
+		},
 	})
-	const text = response.response
-		.text()
-		.replace("```json", "")
-		.replace("\n```", "")
-		.trim()
+	const text = response.text.replace("```json", "").replace("\n```", "").trim()
 	console.log(text)
 	//convert to json
 	let script = JSON.parse(text)
